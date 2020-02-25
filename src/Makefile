@@ -1,28 +1,24 @@
 
+BIN  := nush
+SRCS := $(wildcard *.c)
+OBJS := $(SRCS:.c=.o)
+
 CFLAGS := -g
-LDLIBS := -lbsd
+LDLIBS :=
 
-all: length-sort top-triples
+$(BIN): $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LDLIBS)
 
-length-sort: length-sort.o svec.o
-	gcc $(CFLAGS) -o $@ $^ $(LDLIBS)
-
-length-sort.o: length-sort.c svec.h
-	gcc $(CFLAGS) -c -o $@ $<
-
-svec.o: svec.c svec.h
-	gcc $(CFLAGS) -c -o $@ $<
-
-top-triples: top-triples.o hashmap.o
-	gcc $(CFLAGS) -o $@ $^ $(LDLIBS)
-
-top-triples.o: top-triples.c hashmap.h
-	gcc $(CFLAGS) -c -o $@ $<
-
-hashmap.o: hashmap.c hashmap.h
-	gcc $(CFLAGS) -c -o $@ $<
+%.o : %.c $(wildcard *.h)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f *.o length-sort top-triples valgrind.out *.plist
+	rm -rf *.o $(BIN) tmp *.plist valgrind.out main.out
 
-.PHONY: all clean
+test: $(BIN)
+	perl test.pl
+
+valgrind: $(BIN)
+	valgrind -q --leak-check=full --log-file=valgrind.out ./$(BIN)
+
+.PHONY: clean test

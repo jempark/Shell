@@ -1,10 +1,11 @@
 /* This file is lecture notes from CS 3650, Fall 2018 */
 /* Author: Nat Tuck */
+/* This file was edited and taken from Jemin Park's submission from HW04 */
 
 #include <string.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <stdio.h>
+#include <assert.h>
 
 #include "svec.h"
 
@@ -23,7 +24,7 @@ void
 free_svec(svec* sv)
 {
     for (int i = 0; i < sv->size; i++) {
-	free(sv->data[i]);
+	    free(sv->data[i]);
     }
     free(sv->data);
     free(sv);
@@ -48,7 +49,6 @@ svec_put(svec* sv, int ii, char* item)
 {
     assert(ii >= 0 && ii < sv->size);
 
-    char temp;
     int newSize = sv->size + 1;
 
     if (sv->cap < newSize) {
@@ -74,13 +74,4 @@ svec_push_back(svec* sv, char* item)
     
     sv->size = ii + 1;
     svec_put(sv, ii, item);
-}
-
-void
-svec_swap(svec* sv, int ii, int jj)
-{
-    char* temp = sv->data[jj];
-
-    sv->data[jj]  = sv->data[ii];
-    sv->data[ii] = temp; 
 }
