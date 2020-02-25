@@ -25,7 +25,7 @@ nush$
 2. in the child process, exec(), to execute the requested program, passing through the three command line arguments
 3. in the parent process, wait() or waitpid(), to allow the program to finish before executing another command
 
-## Built-in Commands
+## Built-inCommands
 nush$ pwd
 /home/nat/Teaching/3650/hw05
 nush$ cd tests
