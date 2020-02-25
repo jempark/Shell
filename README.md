@@ -14,11 +14,13 @@
 4. Operators.
 
 ## Programs to Execute
+```
 nat@masaru:hw05$ ./nush 
 nush$ head -n 2 /usr/share/dict/words
 A
 A's
-nush$ 
+nush$
+```
 
 ## Given a program to execute, like “head” above, the shell will do three things:
 1. fork(), to create a new process.
@@ -26,6 +28,7 @@ nush$
 3. in the parent process, wait() or waitpid(), to allow the program to finish before executing another command
 
 ## Built-inCommands
+```
 nush$ pwd
 /home/nat/Teaching/3650/hw05
 nush$ cd tests
@@ -33,6 +36,7 @@ nush$ pwd
 /home/nat/Teaching/3650/hw05/tests
 nush$ exit
 nat@masaru:hw05$
+```
 
 ## Some commands aren’t programs to execute, they’re things that the shell should handle itself. Implemented two of these:
 1. The “cd” command changes the current directory. This means calling chdir() to change the state of your shell process.
@@ -41,11 +45,13 @@ nat@masaru:hw05$
 In bash, lots of commands that are available as programs are actually built-in for efficiency, like pwd, echo, etc. The shell should just run these as programs.
 
 ## Operators
+```
 nush$ sort tests/sample.txt | tail -n 3
 remorselessly
 revolutionized
 underplays
-nush$ 
+nush$
+```
 
 Operators either modify the behavior of one command or chain together multiple commands into a single command line.
 
